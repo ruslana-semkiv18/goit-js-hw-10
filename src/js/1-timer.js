@@ -8,12 +8,15 @@ import "izitoast/dist/css/iziToast.min.css";
 let userSelectedDate;
 
 const buttonStart = document.querySelector("button");
+const inputTime = document.querySelector("#datetime-picker");
 const elements = {
-    seconds: document.querySelector("span[data-second]"),
+    seconds: document.querySelector("span[data-seconds]"),
     minutes: document.querySelector("span[data-minutes]"),
     hours: document.querySelector("span[data-hours]"),
     days: document.querySelector("span[data-days]"),
 };
+
+buttonStart.disabled = true;
 
 const options = {
     enableTime: true,
@@ -29,7 +32,7 @@ const options = {
                 titleColor: '#fff',
                 titleSize: '16px',
                 titleLineHeight: '1.5',
-                titleFontWeight: "700",
+                titleFontWeight: '700',
                 message: 'Please choose a date in the future',
                 messageColor: '#fff',
                 messageSize: '16px',
@@ -37,72 +40,65 @@ const options = {
                 messageFontWeight: "400",
                 backgroundColor: '#ef4040',
                 close: true,
-                position: "topRight",
+                close: '#fff',
+                position: 'topRight',
+                progressBarColor: '#b51b1b',
             });
-            buttonStart.disabled = true;
         } else {
             buttonStart.disabled = false;
         }
     },
 };
 
+
 flatpickr("#datetime-picker", options);
 
-const second = userSelectedDate.getSeconds();
-    const minute = userSelectedDate.getMinutes();
-    const hour = userSelectedDate.getHours();
-    const day = userSelectedDate.getDay();
+buttonStart.addEventListener("click", () => {
+    if (userSelectedDate < new Date()) {
+        return;
+    }
 
+    buttonStart.disabled = true;
+    inputTime.disabled = true;
 
+    const counterInterval = setInterval(() => {
+        const currentDate = Date.now();
+        const selectedDate = userSelectedDate.getTime();
+        const diff = selectedDate - currentDate;
+   
+        if (diff < 0) {
+            clearInterval(counterInterval);
+            inputTime.disabled = false;
+            return;
+        }
 
-
-setInterval(() => {
-    
-
-
-    elements.seconds.textContent = second;
-    elements.minutes.textContent = minute;
-    elements.hours.textContent = hour;
-    elements.hours.textContent = day;
-}, 1000);
-
-buttonStart.addEventListener("click", setInterval);
-
-
-
-
-
-
-
-
-
+        const remainingTime = convertMs(diff);
+        elements.seconds.textContent = addLeadingZero(remainingTime.seconds);
+        elements.minutes.textContent = addLeadingZero(remainingTime.minutes);
+        elements.hours.textContent = addLeadingZero(remainingTime.hours);
+        elements.days.textContent = addLeadingZero(remainingTime.days);
+    }, 1000);
+});
 
 
 
 
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
-  const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;  
+    const day = hour * 24;
 
-  // Remaining days
-  const days = Math.floor(ms / day);
-  // Remaining hours
-  const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
-  const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+    const days = Math.floor(ms / day);
+    const hours = Math.floor((ms % day) / hour);
+    const minutes = Math.floor(((ms % day) % hour) / minute);
+    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-  return { days, hours, minutes, seconds };
+    return { days, hours, minutes, seconds };
 }
 
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
-
-
+function addLeadingZero(value) {
+    return String(value).padStart(2, '0');
+}

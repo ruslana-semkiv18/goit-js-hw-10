@@ -1,0 +1,105 @@
+body {
+  padding-top: 36px;
+  padding-left: 156px;
+}
+
+.timer {
+  display: flex;
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.value {
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+}
+
+.label {
+}
+
+#datetime-picker {
+  margin-right: 8px;
+  border: 1px solid #808080;
+  border-radius: 4px;
+  padding: 8px 16px;
+  min-width: 280px;
+  height: 40px;
+  background-color: transparent;
+  outline: transparent;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#datetime-picker:hover,
+#datetime-picker:focus {
+  border-color: #000;
+}
+
+#datetime-picker:active {
+  border-color: #4e75ff;
+}
+
+#datetime-picker:disabled {
+  color: #808080;
+  cursor: default;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  min-width: 75px;
+  min-height: 40px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  background-color: #4e75ff;
+  border: none;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover,
+button:focus {
+  background-color: #6c8cff;
+}
+
+button:disabled {
+  background-color: #cfcfcf;
+  cursor: default;
+}
+
+.flatpickr-day {
+  font-size: 16px;
+  color: #666;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flatpickr-day.today {
+  border-color: #4e75ff;
+}
+
+.flatpickr-day.selected {
+  background-color: #4e75ff;
+}
+
+.flatpickr-day:hover,
+.flatpickr-day:focus {
+  background-color: #c1c1c1;
+}
+
+.flatpickr-months {
+}
+.flatpickr-time input {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+}

@@ -27,7 +27,6 @@ const options = {
         userSelectedDate = selectedDates[0]; 
         if (userSelectedDate < new Date()) {
             iziToast.show({
-                iconUrl: '../img/bi_x-octagon.svg',
                 title: 'Error',
                 titleColor: '#fff',
                 titleSize: '16px',

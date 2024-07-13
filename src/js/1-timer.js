@@ -37,10 +37,9 @@ const options = {
                 messageColor: '#fff',
                 messageSize: '16px',
                 messageLineHeight: '1.5',
-                messageFontWeight: "400",
+                messageFontWeight: '400',
                 backgroundColor: '#ef4040',
                 close: true,
-                close: '#fff',
                 position: 'topRight',
                 progressBarColor: '#b51b1b',
             });
